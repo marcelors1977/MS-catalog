@@ -1,4 +1,4 @@
-import {MicroCatalogApplication} from '../..';
+import { MicroCatalogApplication } from '../..';
 import {
   createRestAppClient,
   givenHttpServerConfig,
@@ -21,9 +21,10 @@ export async function setupApplication(): Promise<AppWithClient> {
   await app.boot();
   await app.start();
 
+  // @ts-ignore
   const client = createRestAppClient(app);
 
-  return {app, client};
+  return { app, client };
 }
 
 export interface AppWithClient {

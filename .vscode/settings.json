@@ -1,10 +1,11 @@
 {
-  "editor.rulers": [80],
+  "editor.rulers": [
+    80
+  ],
   "editor.tabCompletion": "on",
   "editor.tabSize": 2,
   "editor.trimAutoWhitespace": true,
   "editor.formatOnSave": true,
-
   "files.exclude": {
     "**/.DS_Store": true,
     "**/.git": true,
@@ -15,7 +16,6 @@
   },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-
   "typescript.tsdk": "./node_modules/typescript/lib",
   "eslint.run": "onSave",
   "eslint.nodePath": "./node_modules",
@@ -25,5 +25,20 @@
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 33006,
+      "askForPassword": true,
+      "driver": "MySQL",
+      "name": "videos",
+      "database": "code_micro_videos",
+      "username": "root"
+    }
+  ]
 }
