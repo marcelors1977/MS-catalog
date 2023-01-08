@@ -66,4 +66,4 @@ typings/
 .npm-cache
 .idea
 
-# .docker/elasticdata
+.docker/elasticdata
