@@ -76,17 +76,10 @@ export class PingController {
       id: '1',
       name: 'minha primeira categoria',
       // eslint-disable-next-line @typescript-eslint/camelcase
-      create_at: new Date(),
+      create_at: new Date().toISOString(),
       // eslint-disable-next-line @typescript-eslint/camelcase
-      updated_at: new Date
+      updated_at: new Date().toISOString()
     })
     return this.categoryRepo.find();
   }
 }
-
-const meta = MetadataInspector.getClassMetadata<MyClassMetaData>(
-  'meta-data-my-class-decorator',
-  PingController
-)
-
-console.log(meta);
