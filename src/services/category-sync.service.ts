@@ -1,5 +1,6 @@
 import { bind, /* inject, */ BindingScope } from '@loopback/core';
 import { repository } from '@loopback/repository';
+import { Message } from 'amqplib';
 import { rabbitmqSubscribe } from '../decorators';
 import { CategoryRepository } from '../repositories';
 
@@ -11,28 +12,23 @@ export class CategorySyncService {
 
   @rabbitmqSubscribe({
     exchange: 'amq.topic',
-    queue: 'category',
-    routingKey: 'model.category.created'
+    queue: 'micro-catalog/sync-videos/category',
+    routingKey: 'model.category.*'
   })
-  async categoryCreate({ data }: { data: any }) {
-    await this.categoryRepo.create(data);
-  }
-
-  @rabbitmqSubscribe({
-    exchange: 'amq.topic',
-    queue: 'category',
-    routingKey: 'model.category.updated'
-  })
-  async categoryUpdate({ data }: { data: any }) {
-    await this.categoryRepo.updateById(data.id, data);
-  }
-
-  @rabbitmqSubscribe({
-    exchange: 'amq.topic',
-    queue: 'category',
-    routingKey: 'model.category.deleted'
-  })
-  async categoryDelete({ data }: { data: any }) {
-    await this.categoryRepo.deleteById(data.id, data);
+  async handler({ data, message }: { data: any, message: Message }) {
+    const action = message.fields.routingKey.split('.')[2];
+    switch (action) {
+      case 'created':
+        await this.categoryRepo.create(data);
+        break;
+      case 'updated':
+        await this.categoryRepo.updateById(data.id, data);
+        break;
+      case 'deleted':
+        await this.categoryRepo.deleteById(data.id);
+        break;
+      default:
+        break;
+    }
   }
 }
