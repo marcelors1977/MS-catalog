@@ -1,5 +1,10 @@
 import { Entity, model, property } from '@loopback/repository';
 
+export enum CastMemberType {
+  DIRECTOR = 1,
+  ACTOR = 2
+}
+
 @model({ settings: { strict: false } })
 export class CastMember extends Entity {
   @property({
@@ -17,11 +22,10 @@ export class CastMember extends Entity {
   name: string;
 
   @property({
-    type: 'boolean',
-    required: false,
-    default: true
+    type: 'number',
+    required: true
   })
-  is_active: boolean;
+  type: number;
 
   @property({
     type: 'date',
