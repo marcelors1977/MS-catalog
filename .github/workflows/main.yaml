@@ -14,13 +14,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Iniciando os containeres"
-        run: docker-compose -f docker-compose-prod.yaml up -d app elasticsearch
+        run: docker-compose -f docker-compose-prod.yaml up --build -d app elasticsearch
 
       - name: "Aguardando elasticsearch"
-        run: docker exec -t ms-catalog-app wait-for elasticsearch:9200 -t 120 -- echo "elasticsearch running on por 9200"
+        run: docker exec -t ms-catalog-app wait-for elasticsearch:9200 -t 120 --
 
       - name: "Aguardando app"
-        run: docker exec -t ms-catalog-app wait-for app:3001 -t 120 -- echo "app running on por 3001"
+        run: docker exec -t ms-catalog-app wait-for app:3001 -t 120 --
 
       # - name: "Chown in /var/www"
       #   run: docker exec -u root -t micro-videos-app chown -R www-data:www-data /var/www
