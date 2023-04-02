@@ -17,7 +17,7 @@ jobs:
         run: docker-compose -f docker-compose-prod.yaml up --build -d app elasticsearch
 
       - name: "Containers rodando"
-        run: docker-compose ps
+        run: docker exec -t ms-catalog-app ls -la
 
       # - name: "Aguardando elasticsearch"
       #   run: docker exec -t ms-catalog-app wait-for elasticsearch:9200 -t 120 --
