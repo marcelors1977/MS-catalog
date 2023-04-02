@@ -4,4 +4,7 @@ cd /home/node/app
 
 npm install
 
-nodemon -L
+if [ ! -z "$PROD" ]; then
+    # nodemon -L
+    echo "passou"
+fi

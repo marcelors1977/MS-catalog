@@ -1,9 +1,9 @@
 import './bootstrap';
-import { MicroCatalogApplication } from './application';
-import { ApplicationConfig } from '@loopback/core';
-import { RestServer } from '@loopback/rest';
+import {MicroCatalogApplication} from './application';
+import {ApplicationConfig} from '@loopback/core';
+import {RestServer} from '@loopback/rest';
 
-export { MicroCatalogApplication };
+export {MicroCatalogApplication};
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new MicroCatalogApplication(options);

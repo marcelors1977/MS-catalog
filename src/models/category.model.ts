@@ -1,52 +1,64 @@
-import { Entity, model, property } from '@loopback/repository';
+import {Entity, model, property} from '@loopback/repository';
+import {Exclude} from 'class-transformer';
 
-@model({ settings: { strict: false } })
+export interface SmallCategory {
+  id: string;
+  name: string;
+  is_active: boolean;
+}
+
+@model({settings: {strict: false}})
 export class Category extends Entity {
   @property({
     type: 'string',
     id: true,
     generated: false,
     required: true,
+    // jsonSchema: {
+    //   exists: ['Category', 'id']
+    // }
   })
   id: string;
 
   @property({
     type: 'string',
     required: true,
+    jsonSchema: {
+      minLength: 1,
+      maxLength: 255,
+    },
   })
   name: string;
 
+  @Exclude()
   @property({
     type: 'string',
     required: false,
-    default: ''
+    jsonSchema: {
+      nullable: true,
+    },
+    default: null,
   })
   description: string;
 
   @property({
     type: 'boolean',
     required: false,
-    default: true
+    default: true,
   })
   is_active: boolean;
 
   @property({
     type: 'date',
-    required: true
+    required: true,
   })
   created_at: string;
 
   @property({
     type: 'date',
-    required: true
+    required: true,
   })
   updated_at: string;
-
-  // Define well-known properties here
-
-  // Indexer property to allow additional data
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [prop: string]: any;
 
   constructor(data?: Partial<Category>) {
     super(data);

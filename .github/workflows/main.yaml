@@ -1,0 +1,29 @@
+name: MS API do Catalogo NODE JS
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Iniciando os containeres"
+        run: docker-compose -f docker-compose-prod.yml up -d app elasticsearch
+
+      - name: "Aguardando elasticsearch"
+        run: docker exec -t ms-catalog-app wait-for elasticsearch:9200 -t 120 -- echo "elasticsearch running on por 9200"
+
+      - name: "Aguardando app"
+        run: docker exec -t ms-catalog-app wait-for app:3001 -t 120 -- echo "app running on por 3001"
+
+      # - name: "Chown in /var/www"
+      #   run: docker exec -u root -t micro-videos-app chown -R www-data:www-data /var/www
+
+      - name: "Executando testes frontend"
+        run: docker exec -t micro-videos-app npm run test
