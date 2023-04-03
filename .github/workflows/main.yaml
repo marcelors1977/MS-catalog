@@ -29,4 +29,4 @@ jobs:
       #   run: docker exec -u root -t micro-videos-app chown -R www-data:www-data /var/www
 
       - name: "Executando testes frontend"
-        run: docker exec -t ms-catalog-app npm run clean
+        run: docker exec -u root -t ms-catalog-app npm run clean
