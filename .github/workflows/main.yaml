@@ -17,7 +17,7 @@ jobs:
         run: docker-compose -f docker-compose-prod.yaml up --build -d
 
       - name: "Aguardando elasticsearch"
-        run: docker-compose exec -t app wait-for elasticsearch:9200 -t 120 -- echo "elasticsearch running on port 9200"
+        run: docker-compose exec app wait-for elasticsearch:9200 -t 120 -- echo "elasticsearch running on port 9200"
 
       - name: "Executando testes API"
-        run: docker-compose exec -t app npm run test
+        run: docker-compose exec app npm run test
