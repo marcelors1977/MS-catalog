@@ -67,3 +67,5 @@ typings/
 .idea
 
 .docker/elasticdata
+
+package-lock.json
