@@ -1,13 +1,13 @@
-import {Client, expect} from '@loopback/testlab';
-import {MicroCatalogApplication} from '../..';
-import {clearDb, setupApplication} from './test-helper';
+import { Client, expect } from '@loopback/testlab';
+import { MicroCatalogApplication } from '../..';
+import { clearDb, setupApplication } from './test-helper';
 
 describe('Categories', () => {
   let app: MicroCatalogApplication;
   let client: Client;
 
   before('setupApplication', async () => {
-    ({app, client} = await setupApplication());
+    ({ app, client } = await setupApplication());
   });
 
   beforeEach(clearDb);
@@ -17,7 +17,7 @@ describe('Categories', () => {
   });
 
   it('Invoces GET /categories', async () => {
-    const response = await client.get('/categories').expect(200);
+    const response = await client.get('/categories1').expect(200);
     expect(response.body).to.containDeep({
       results: [],
       count: 0,
