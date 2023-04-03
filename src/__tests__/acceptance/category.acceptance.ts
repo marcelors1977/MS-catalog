@@ -2,7 +2,7 @@ import {Client, expect} from '@loopback/testlab';
 import {MicroCatalogApplication} from '../..';
 import {clearDb, setupApplication} from './test-helper';
 
-describe('HomePage', () => {
+describe('Categories', () => {
   let app: MicroCatalogApplication;
   let client: Client;
 
