@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
-    entrypoint: ./entrypoint.sh
+    entrypoint: npm install && node
     # entrypoint: wait-for elasticsearch:9200 -t 120 -- ./.docker/entrypoint.sh
     container_name: ms-catalog-app
     ports:
