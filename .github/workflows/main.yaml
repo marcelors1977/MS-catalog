@@ -20,4 +20,7 @@ jobs:
       #   run: docker exec -t ms-catalog-app wait-for elasticsearch:9200 -t 120 -- echo "elasticsearch running on port 9200"
 
       - name: "Executando testes API"
+        run: docker ps -a
+
+      - name: "Executando testes API"
         run: docker run ms-catalog-app  npm run test
