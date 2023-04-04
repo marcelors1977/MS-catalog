@@ -26,4 +26,4 @@ jobs:
           docker ps -a
 
       - name: "Executando testes API"
-        run: docker run ms-catalog-app  npm run test
+        run: docker compose exec ms-catalog-app  npm run test
