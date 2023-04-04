@@ -19,9 +19,6 @@ jobs:
       - name: "Aguardando elasticsearch"
         run: docker exec -t ms-catalog-app wait-for elasticsearch:9200 -t 120 -- echo "elasticsearch running on port 9200"
 
-      - name: "Aguardando Aplicação"
-        run: docker exec -t ms-catalog-app wait-for app:3001 -t 120 -- echo "Aplication running on port 3001"
-
       # - name: "Executando testes API"
       #   run: |
       #     sleep 10
