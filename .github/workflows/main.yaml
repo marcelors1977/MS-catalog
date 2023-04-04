@@ -16,9 +16,8 @@ jobs:
       - name: "Iniciando os containeres"
         run: docker-compose -f docker-compose-prod.yaml up --build -d
 
-      - name: "Aguardando elasticsearch"
-        run: docker exec -t ms-catalog-app wait-for elasticsearch:9200 -t 120 -- echo "elasticsearch running on port 9200"
+      # - name: "Aguardando elasticsearch"
+      #   run: docker exec -t ms-catalog-app wait-for elasticsearch:9200 -t 120 -- echo "elasticsearch running on port 9200"
 
-      - id: "teste"
-        name: "Executando testes API"
+      - name: "Executando testes API"
         run: docker exec -t ms-catalog-app  npm run test
