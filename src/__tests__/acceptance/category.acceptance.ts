@@ -17,7 +17,7 @@ describe('Categories', () => {
   });
 
   it('Invoces GET /categories', async () => {
-    const response = await client.get('/categories1').expect(200);
+    const response = await client.get('/categories').expect(200);
     expect(response.body).to.containDeep({
       results: [],
       count: 0,
