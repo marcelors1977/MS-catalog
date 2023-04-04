@@ -22,7 +22,7 @@ jobs:
       - name: "Executando testes API"
         run: |
           sleep 10
-          docker-compose logs app
+          docker-compose logs elasticsearch
           docker ps -a
 
       - name: "Executando testes API"
