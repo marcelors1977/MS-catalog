@@ -21,7 +21,7 @@ services:
     container_name: ms-catalog-elasticsearch
     environment:
       - discovery.type=single-node
-    volumes:
-      - ./.docker/elasticdata:/usr/share/elasticsearch/data
+    # volumes:
+    #   - ./.docker/elasticdata:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
