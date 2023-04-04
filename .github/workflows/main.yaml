@@ -18,7 +18,7 @@ jobs:
 
       - id: "elastic"
         name: "Aguardando elasticsearch"
-        run: docker-compose exec app wait-for elasticsearch:9200 -t 120 -- echo "elasticsearch running on port 9200"
+        run: docker-compose exec -t app wait-for elasticsearch:9200 -t 120 -- echo "elasticsearch running on port 9200"
 
       - name: "saida"
         run: echo ${{ steps.elastic.outputs.stdout }}
