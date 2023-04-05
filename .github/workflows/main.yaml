@@ -25,6 +25,9 @@ jobs:
       #     docker-compose logs app
       #     docker ps -a
 
+      - name: "Executando clean"
+        run: docker compose exec app npm run clean
+
       - name: "Executando lint"
         run: docker compose exec app npm run lint:fix
 
