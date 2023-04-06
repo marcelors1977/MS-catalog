@@ -10,7 +10,7 @@ describe('Categories', () => {
     ({ app, client } = await setupApplication());
   });
 
-  beforeEach(clearDb);
+  // beforeEach(clearDb);
 
   after(async () => {
     await app.stop();
