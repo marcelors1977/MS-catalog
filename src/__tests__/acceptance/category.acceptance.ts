@@ -1,6 +1,6 @@
 import { Client, expect, httpGetAsync } from '@loopback/testlab';
 import { MicroCatalogApplication } from '../..';
-import { clearDb, setupApplication } from './test-helper';
+import { clearDb, heathCheckIndex, setupApplication } from './test-helper';
 
 describe('Categories', () => {
   let app: MicroCatalogApplication;
@@ -8,7 +8,7 @@ describe('Categories', () => {
 
   before('setupApplication', async () => {
     ({ app, client } = await setupApplication());
-    await httpGetAsync('http://elasticsearch:9200/_cluster/health/catalog-test?wait_for_status=green&timeout=5s&pretty');
+    await heathCheckIndex();
   });
 
   beforeEach(clearDb);
