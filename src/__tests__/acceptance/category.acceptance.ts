@@ -1,31 +1,27 @@
-import { Client, expect } from '@loopback/testlab';
+import { Client, expect, httpGetAsync } from '@loopback/testlab';
 import { MicroCatalogApplication } from '../..';
 import { clearDb, setupApplication } from './test-helper';
-import { appendFile } from 'fs';
 
-setTimeout(() => {
-  describe('Categories', () => {
-    let app: MicroCatalogApplication;
-    let client: Client;
+describe('Categories', () => {
+  let app: MicroCatalogApplication;
+  let client: Client;
 
-    setTimeout(() => {
-      before('setupApplication', async () => {
-        ({ app, client } = await setupApplication());
-      });
-    }, 5000);
+  before('setupApplication', async () => {
+    ({ app, client } = await setupApplication());
+    await httpGetAsync('http://elasticsearch:9200/_cluster/health/catalog-test?wait_for_status=green&timeout=5s&pretty');
+  });
 
-    beforeEach(clearDb);
+  beforeEach(clearDb);
 
-    after(async () => {
-      await app.stop();
-    });
+  after(async () => {
+    await app.stop();
+  });
 
-    it('Invoces GET /categories', async () => {
-      const response = await client.get('/categories').expect(200);
-      expect(response.body).to.containDeep({
-        results: [],
-        count: 0,
-      });
+  it('Invoces GET /categories', async () => {
+    const response = await client.get('/categories').expect(200);
+    expect(response.body).to.containDeep({
+      results: [],
+      count: 0,
     });
   });
-}, 5000);
+});

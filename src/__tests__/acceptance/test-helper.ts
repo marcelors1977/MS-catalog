@@ -19,12 +19,11 @@ export async function setupApplication(): Promise<AppWithClient> {
     rest: restConfig,
   });
 
-  app.bind('datasources.esv7').to(testDb);
   await app.boot();
+  app.bind('datasources.esv7').to(testDb);
   await app.start();
 
   const client = supertest('http://127.0.0.1:9000');
-
   return {app, client};
 }
 
