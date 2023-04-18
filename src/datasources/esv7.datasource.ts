@@ -3,15 +3,18 @@ import {
   LifeCycleObserver,
   ValueOrPromise,
 } from '@loopback/core';
-import { juggler } from '@loopback/repository';
-import config from './esv7.datasource.config';
+import {juggler} from '@loopback/repository';
+import dbConfig from './esv7.datasource.config';
+import {Client} from 'es6';
 
 @lifeCycleObserver('datasource')
-export class Esv7DataSource extends juggler.DataSource
-  implements LifeCycleObserver {
+export class Esv7DataSource
+  extends juggler.DataSource
+  implements LifeCycleObserver
+{
   static dataSourceName = 'esv7';
 
-  constructor() {
+  constructor(config = dbConfig) {
     super(config);
   }
 
@@ -28,5 +31,17 @@ export class Esv7DataSource extends juggler.DataSource
    */
   stop(): ValueOrPromise<void> {
     return super.disconnect();
+  }
+
+  public async deleteAllDocuments() {
+    const index = (this as any).adapter.settings.index;
+
+    const client: Client = (this as any).adapter.db;
+    await client.deleteByQuery({
+      index,
+      body: {
+        query: {match_all: {}},
+      },
+    });
   }
 }

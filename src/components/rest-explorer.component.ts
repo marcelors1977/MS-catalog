@@ -1,12 +1,19 @@
-import { Component, CoreBindings } from "@loopback/core";
-import { bind, config, ContextTags, inject } from '@loopback/context';
-import { createControllerFactoryForClass, RestApplication, RestBindings, RestServer } from "@loopback/rest";
-import { RestExplorerBindings, RestExplorerConfig } from "@loopback/rest-explorer";
-import { ExplorerController } from "@loopback/rest-explorer/dist/rest-explorer.controller"
+import {Component} from '@loopback/core';
+import {bind, config, ContextTags, inject} from '@loopback/context';
+import {
+  createControllerFactoryForClass,
+  RestBindings,
+  RestServer,
+} from '@loopback/rest';
+import {
+  RestExplorerBindings,
+  RestExplorerConfig,
+} from '@loopback/rest-explorer';
+import {ExplorerController} from '@loopback/rest-explorer/dist/rest-explorer.controller';
 
 const swaggerUI = require('swagger-ui-dist');
 
-@bind({ tags: { [ContextTags.KEY]: RestExplorerBindings.COMPONENT.key } })
+@bind({tags: {[ContextTags.KEY]: RestExplorerBindings.COMPONENT.key}})
 export class RestExplorerComponent implements Component {
   constructor(
     @inject(RestBindings.SERVER)
@@ -22,30 +29,29 @@ export class RestExplorerComponent implements Component {
       this.registerControllerRoute(
         'get',
         explorerPath + '/openapi.json',
-        'spec'
+        'spec',
       );
     }
 
     restServer.static(explorerPath, swaggerUI.getAbsoluteFSPath());
-    restServer.config.apiExplorer = { disabled: true };
+    restServer.config.apiExplorer = {disabled: true};
   }
 
   private registerControllerRoute(
     verb: string,
     path: string,
-    methodName: string
+    methodName: string,
   ) {
     this.restServer.route(
       verb,
       path,
       {
         'x-visibility': 'undocumented',
-        responses: {}
+        responses: {},
       },
       ExplorerController,
       createControllerFactoryForClass(ExplorerController),
-      methodName
-    )
+      methodName,
+    );
   }
-
 }

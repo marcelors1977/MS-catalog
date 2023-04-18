@@ -1,6 +1,8 @@
-import { Entity, model, property } from '@loopback/repository';
+import {getModelSchemaRef} from '@loopback/openapi-v3';
+import {Entity, hasMany, model, property} from '@loopback/repository';
+import {Category, SmallCategory} from './category.model';
 
-@model({ settings: { strict: false } })
+@model({settings: {strict: false}})
 export class Gender extends Entity {
   @property({
     type: 'string',
@@ -13,33 +15,55 @@ export class Gender extends Entity {
   @property({
     type: 'string',
     required: true,
+    jsonSchema: {
+      minLength: 1,
+      maxLength: 255,
+    },
   })
   name: string;
 
   @property({
     type: 'boolean',
     required: false,
-    default: true
+    default: true,
   })
   is_active: boolean;
 
   @property({
     type: 'date',
-    required: true
+    required: true,
   })
   created_at: string;
 
   @property({
     type: 'date',
-    required: true
+    required: true,
   })
   updated_at: string;
 
-  // Define well-known properties here
-
-  // Indexer property to allow additional data
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [prop: string]: any;
+  @hasMany(() => Category)
+  @property({
+    type: 'object',
+    jsonSchema: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+          },
+          name: {
+            type: 'string',
+          },
+          is_active: {
+            type: 'boolean',
+          },
+        },
+      },
+      uniqueItems: true,
+    },
+  })
+  categories: SmallCategory;
 
   constructor(data?: Partial<Gender>) {
     super(data);

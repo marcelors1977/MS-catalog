@@ -1,5 +1,5 @@
-import { Options } from "amqplib";
-import { MethodDecoratorFactory } from "@loopback/context";
+import {Options} from 'amqplib';
+import {MethodDecoratorFactory} from '@loopback/context';
 
 export interface RabbitmqSubscribeMetadata {
   exchange: string;
@@ -8,10 +8,13 @@ export interface RabbitmqSubscribeMetadata {
   queueOptions?: Options.AssertQueue;
 }
 
-export const RABBITMQ_SUBSCRIBE_DECORATOR = 'rabbitmq-subscribe-metadata'
+export const RABBITMQ_SUBSCRIBE_DECORATOR = 'rabbitmq-subscribe-metadata';
 
-export function rabbitmqSubscribe(spec: RabbitmqSubscribeMetadata): MethodDecorator {
+export function rabbitmqSubscribe(
+  spec: RabbitmqSubscribeMetadata,
+): MethodDecorator {
   return MethodDecoratorFactory.createDecorator<RabbitmqSubscribeMetadata>(
-    RABBITMQ_SUBSCRIBE_DECORATOR, spec
-  )
+    RABBITMQ_SUBSCRIBE_DECORATOR,
+    spec,
+  );
 }
